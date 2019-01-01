@@ -5,8 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Admin")
 public class Admin {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "admin_Sequence")

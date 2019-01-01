@@ -17,15 +17,14 @@ import javax.persistence.SequenceGenerator;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "customer_Sequence")
-	@SequenceGenerator(name = "cusomer_Sequence",initialValue=12345 ,sequenceName = "CUSTOMER_SEQ")
+	@SequenceGenerator(name = "cusomer_Sequence",allocationSize = 1, initialValue = 2345,sequenceName = "CUSTOMER_SEQ")
 	int accNo; 
 	
 
 	String name;
 	float balance;
 	
-	@OneToMany(targetEntity=Transaction.class, fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
-	//mappedBy="customer"
+	@OneToMany(targetEntity=Transaction.class, mappedBy="customer",fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Transaction> transactions = new ArrayList<>();
 	
 	public int getAccNo() {

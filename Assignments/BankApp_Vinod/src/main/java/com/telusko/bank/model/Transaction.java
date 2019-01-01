@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Transaction")
 public class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "transaction_Sequence")
@@ -27,16 +29,15 @@ public class Transaction {
 	float totalbalance;
 	
 	
-	/*@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="acc_no")
-	Customer customer;
-	
+	Customer customer;	
 	public Customer getCustomer() {
 		return customer;
 	}
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}*/
+	}
 	
 	public int getTransactionId() {
 		return transactionId;
