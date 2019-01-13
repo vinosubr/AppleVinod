@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,15 @@ public class BankController {
 		return customer;
 	}
 	
+	@RequestMapping("/index")	
+	public ModelAndView showHome(ModelAndView mv) {
+		//Get CustomerList
+		mv.setViewName("index");
+		return mv;
+	}
+	
 	@RequestMapping("/showTransfer")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	public ModelAndView showTransfer(ModelAndView mv) {
 		//Get CustomerList
 		List<Customer> customers = custRepo.findAll();
@@ -46,6 +55,7 @@ public class BankController {
 		return mv;
 	}
 	@RequestMapping("/transferMoney")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	public ModelAndView transferMoney(@ModelAttribute("transfer") TransferMoney money,ModelAndView mv,HttpSession session) {
 		//TransferMoney
 		//mv.addObject("customers", customers);
@@ -80,6 +90,7 @@ public class BankController {
 	}
 	
 	@RequestMapping("/showTransactions/{custId}")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	public ModelAndView showTransactions(@PathVariable("custId") int custId,ModelAndView mv) {
 		Customer cust = (Customer)custRepo.getOne(custId);
 		System.out.println(" Customer "+cust);

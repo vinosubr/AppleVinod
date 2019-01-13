@@ -31,6 +31,7 @@ input[type=button], input[type=submit], input[type=reset] {
 </style>
 </head>
 <body>
+<a href="/logout">logout</a><br/>
 ${message}
 <sform:form action="transferMoney" method="post"   modelAttribute="transfer5">
 <table>

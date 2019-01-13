@@ -34,7 +34,7 @@ input[type=button], input[type=submit], input[type=reset] {
 </style>
 </head>
 <body>
-
+<a href="/logout">logout</a><br/>
 <sform:form action="addCustomer" method="post"  modelAttribute="customer5">
 <table>
 	<caption><h2>Add Customer Form</h2></caption>

@@ -34,7 +34,7 @@ input[type=button], input[type=submit], input[type=reset] {
 </style>
 </head>
 <body>
-
+<a href="/logout">logout</a>
 <table>
 <caption><h2>List of Transactions</h2></caption>
 		<tr>

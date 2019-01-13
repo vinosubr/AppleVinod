@@ -6,7 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView showCustomer(ModelAndView mv,HttpSession session){
 		session.setAttribute("test", "Hello World");
 		List<Customer> customers = (List<Customer>)repo.findAll();
@@ -50,6 +53,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/customer")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView showCustomer1(ModelAndView mv,HttpSession session){
 		session.setAttribute("test", "Hello World");
 		List<Customer> customers = (List<Customer>)repo.findAll();
@@ -59,6 +63,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/admin")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView showAdmin(ModelAndView mv,HttpSession session){
 		List<Admin> admins = (List<Admin>)adminrepo.findAll();
 		mv.addObject("admins", admins);
@@ -68,6 +73,7 @@ public class UserController {
 	
 	
 	@PostMapping("/addCustomer")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView addCustomer(@ModelAttribute("customer") Customer customer,ModelAndView mv,HttpSession session) {		
 		//Add Alien to Database
 		customer.setBalance(1000);
@@ -82,6 +88,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/addAdmin")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView addAdmin(@ModelAttribute("admin") Admin admin,ModelAndView mv,HttpSession session) {		
 		//Add Alien to Database
 		adminrepo.save(admin);
@@ -91,4 +98,15 @@ public class UserController {
 		mv.setViewName("addAdmin");
 		return mv;
 	}
+	
+	@RequestMapping("/login")
+	public String getLoginModel(Model model){
+		return "login";
+	}
+	
+	@RequestMapping("/logout-success")
+	public	String getLogoutModel(Model model){
+		return "logout";
+	}
+
 }
